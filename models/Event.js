@@ -17,6 +17,10 @@ const eventSchema = new mongoose.Schema({
         type : Date,
         required: true
     },
+    created_at : {
+        type : Date,
+        required: true
+    }
 })
 
 let Event = mongoose.model('Event', eventSchema , 'events')
