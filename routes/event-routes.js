@@ -24,10 +24,21 @@ router.get('/', (req,res) => {
 
 //show single event
 router.get('/:id', (req,res) => {
-
-    res.render('event/show')
+    Event.findById((req.params.id), (err,eventResult)=> {
+        
+        if(!err) {
+            
+         res.render('event/show', {
+             event: eventResult
+         })
+ 
+        } else {
+            console.log(err)
+        }
     
+    })
 })
+
 
 
 module.exports = router
