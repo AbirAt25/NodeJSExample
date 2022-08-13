@@ -1,5 +1,11 @@
 const express = require('express')
 const app = express()
+const bodyParser = require('body-parser')
+
+
+// Bring bodyParser : which get automaticly the data from a form fields
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 //connect to Database
 const db = require('./config/database')
@@ -14,7 +20,7 @@ app.use(express.static('node_modules'))
 
 
 app.get('/',  (req, res) =>{
-    res.send('Hello Nidhal')
+    res.send('Hello Nidhal ! Please Click <a href="events">Here</a>')
   })
 
 

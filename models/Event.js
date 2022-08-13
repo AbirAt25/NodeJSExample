@@ -23,6 +23,6 @@ const eventSchema = new mongoose.Schema({
     }
 })
 // mongoose.model(modelName,SchemaName,CollectionName)
-let Event = mongoose.model('Event', eventSchema , 'events')
+let Event = mongoose.model('Event', eventSchema , 'eventsCollection')
 
 module.exports = Event

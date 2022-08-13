@@ -1,7 +1,7 @@
+const { render } = require('ejs')
 const express = require('express')
 const router = express.Router()
 const Event = require("../models/Event")
-
 
 //route home events
 router.get('/', (req,res) => {
@@ -21,7 +21,32 @@ router.get('/', (req,res) => {
     })
     
 })
+// create Event 
+router.get('/create' , (req,res) => {
+    res.render('event/create')
+})
 
+router.post('/create', (req,res)=> {
+
+    console.log(req.body)
+    let newEvent = new Event({
+        title: req.body.title,
+        description: req.body.description,
+        date: req.body.date,
+        location: req.body.location,
+        created_at: Date.now()
+    })
+    newEvent.save( (err) => {
+        if(!err){
+            console.log("added successfuly");
+            res.render('/events')
+        }
+        else {
+            console.log(err);
+        }
+    })
+
+})
 //show single event
 router.get('/:id', (req,res) => {
     Event.findById((req.params.id), (err,eventResult)=> {
@@ -38,6 +63,8 @@ router.get('/:id', (req,res) => {
     
     })
 })
+
+
 
 
 
