@@ -7,23 +7,9 @@
 
     <div class="col-md-6 offset-md-3">
         <hr>
-        <% if (errors) {%>
-            <% errors.forEach((err)=> {%>
 
-                <div class="alert alert-danger" role="alert">
-                    <strong>Notice : !</strong> <%= err.msg%>
-                  </div>
+        <%- include('../partials/flashMessages.ejs') -%>
 
-
-
-
-
-               <!--  <div class="alert alert-danger"> -->
-                        
-            
-            <%})%>
-        <%}%>
-        
         <form action="create" method="post">
             <div class="form-group" >
                 <label for="title">Titre :</label>

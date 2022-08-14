@@ -2,7 +2,12 @@
 <%- include('../partials/navbar.ejs') -%>
 
 <div class="container">
-
+  
+  <div class="row mt-3">
+    <div class="col md-12">
+      <%- include('../partials/flashMessages.ejs') -%>
+    </div>    
+  </div>   
     <% chunk.forEach((events)=> {%>
       <div class="row mt-3">
           <% events.forEach((event)=> {%>

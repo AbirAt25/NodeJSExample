@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const session = require('express-session')
+const flash = require('connect-flash')
+
 
 
 // Bring bodyParser : which get automaticly the data from a form fields
@@ -18,6 +21,17 @@ app.set('view engine','ejs')
 app.use(express.static('public'))
 app.use(express.static('node_modules'))
 
+//Session & Flash config 
+
+app.use(session({
+  secret: 'nidhal secrets',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 * 15 }
+})
+)
+
+app.use(flash())
 
 app.get('/',  (req, res) =>{
     res.send('Hello Nidhal ! Please Click <a href="events">Here</a>')
