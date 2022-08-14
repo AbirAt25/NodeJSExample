@@ -1,0 +1,39 @@
+<%- include('../partials/header.ejs') -%>
+<%- include('../partials/navbar.ejs') -%>
+
+<div class="container mt-3">
+
+    <h5 class="display-6 col-md-6 offset-md-3 mb-4">Editer un Event</h5>
+
+    <div class="col-md-6 offset-md-3">
+        <hr>
+
+        <%- include('../partials/flashMessages.ejs') -%>
+
+        <form action="/events/update" method="post">
+            <div class="form-group" >
+                <label for="title">Titre :</label>
+                <input type="text" name="title" id="title" class="form-control" value="<%= event.title %>">
+            </div>
+            <div class="form-group" method="post">
+                <label for="description">Description :</label>
+                <textarea rows="6" name="description" id="description" class="form-control"><%= event.description %></textarea>
+            </div>
+            <div class="form-group" method="post">
+                <label for="date">Date :</label>
+                <input type="date" name="date" id="date" class="form-control" value="<%= eventDate %>">
+            </div>
+            <div class="form-group" method="post">
+                <label for="location">Location :</label>
+                <input type="text" name="location" id="location" class="form-control" value="<%= event.location %>">
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Update" class="btn btn-primary">
+                <input type="reset" value="Back to Saved Data" class="btn btn-secondary">
+        </form>
+
+        
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') -%>
