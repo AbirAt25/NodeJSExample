@@ -145,6 +145,19 @@ router.get('/edit/:id', (req,res) => {
      }
 })
 
+// delet event : 
 
+router.delete('/delete/:id', (req,res) => {
+    
+    let query = { _id: req.params.id }
+    Event.deleteOne(query,(err) => {
+        if (!err){
+            res.status(200).json('deleted')
+        }
+        else {
+            res.status(404).json('Error in delete > '+err)
+        }
+    })
+})
 
 module.exports = router
