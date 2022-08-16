@@ -4,6 +4,8 @@ const router = express.Router()
 const Event = require("../models/Event")
 const { check, validationResult } = require('express-validator')
 const moment = require('moment'); // require
+const { query } = require('express')
+const { Query } = require('mongoose')
 moment().format(); 
 
 //route home events
@@ -95,7 +97,9 @@ router.get('/edit/:id', (req,res) => {
         if(!err){
             res.render('event/edit', {
                 event:event,
-                eventDate: moment(event.date).format('YYYY-MM-DD')
+                eventDate: moment(event.date).format('YYYY-MM-DD'),
+                errors: req.flash('errors'),
+                successMsg : req.flash('successMsg')
             })
         }
         else{
@@ -105,9 +109,40 @@ router.get('/edit/:id', (req,res) => {
 })
  // update event
 
- router.post('/update', (req,res)=> {
-    
-    console.log(req.body)
+ router.post('/update',[
+
+    check('title').isLength({min :5}).withMessage('Title should be more than 5 caracters'),
+    check('description').isLength({min: 5}).withMessage('Description should be more than 5 char'),
+    check('location').isLength({min: 3}).withMessage('Location should be more than 5 char'),
+    check('date').isLength({min: 5}).withMessage('Date should valid Date'),
+
+] , (req,res)=> {
+    const errors = validationResult(req)
+
+    if (! errors.isEmpty()){
+        req.flash('errors',errors.array())
+        //res.json(errors.array())
+        res.redirect('/events/edit/'+ req.body.id)
+    }
+    else {
+// create object 
+
+        let newfeilds = {
+           title: req.body.title,
+           description: req.body.description,
+           location: req.body.location,
+           date: req.body.date
+        }
+        let query = {_id: req.body.id}
+        Event.updateOne(query, newfeilds, (err)=> {
+            if(!err) {
+                req.flash('successMsg', " The event was updated successfuly"),
+                res.redirect('/events/edit/' + req.body.id)
+            } else {
+                console.log(err)
+            }
+        })
+     }
 })
 
 
